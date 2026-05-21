@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Portfolio – Ingénieur des Travaux en Systèmes d'Information</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue:     #1a4a72;
+    --blue-mid: #2563a8;
+    --blue-lt:  #d6e8f7;
+    --gold:     #b5873a;
+    --dark:     #0f1923;
+    --text:     #2c3e50;
+    --muted:    #6b7c8d;
+    --bg:       #f5f7fa;
+    --white:    #ffffff;
+    --line:     #dce6ef;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .hero {
+    background: var(--dark);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 2rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(37,99,168,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(181,135,58,0.10) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .75rem;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(181,135,58,.4);
+    padding: .35rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp .6s .2s forwards;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.01em;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp .7s .4s forwards;
+  }
+
+  .hero h1 span { color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255,255,255,.65);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp .7s .6s forwards;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 2rem;
+    font-size: .875rem;
+    color: rgba(255,255,255,.55);
+    opacity: 0;
+    animation: fadeUp .7s .8s forwards;
+  }
+
+  .hero-contacts span { display: flex; align-items: center; gap: .4rem; }
+  .hero-contacts strong { color: var(--white); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    font-size: .72rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.3);
+    opacity: 0;
+    animation: fadeUp .6s 1.2s forwards;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+    animation: scrollLine 2s 1.5s infinite;
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 2rem;
+  }
+
+  .nav-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 56px;
+    overflow-x: auto;
+  }
+
+  .nav-inner a {
+    text-decoration: none;
+    font-size: .82rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    padding: .25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+
+  .nav-inner a:hover { color: var(--blue); border-color: var(--blue); }
+
+  /* ── SECTIONS ─────────────────────────────────────────────── */
+  .section {
+    padding: 5rem 2rem;
+  }
+
+  .section:nth-child(even) { background: var(--white); }
+
+  .inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 2.5rem;
+    padding-bottom: .8rem;
+    border-bottom: 2px solid var(--line);
+  }
+
+  /* ── PROFIL ───────────────────────────────────────────────── */
+  .profil-text {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--text);
+    max-width: 720px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .stat {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blue-mid);
+    padding: 1.4rem 1.2rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .stat strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: .3rem;
+  }
+
+  .stat span { font-size: .82rem; color: var(--muted); }
+
+  /* ── EXPÉRIENCES ──────────────────────────────────────────── */
+  .timeline { position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue-mid), var(--line));
+  }
+
+  .job {
+    position: relative;
+    padding: 0 0 3rem 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity .5s, transform .5s;
+  }
+
+  .job.visible { opacity: 1; transform: none; }
+
+  .job::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--white);
+    border: 3px solid var(--blue-mid);
+  }
+
+  .job.current::before { background: var(--gold); border-color: var(--gold); }
+
+  .job-header { margin-bottom: .6rem; }
+
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: .2rem;
+  }
+
+  .job-org {
+    font-size: .9rem;
+    font-weight: 500;
+    color: var(--blue-mid);
+    margin-bottom: .2rem;
+  }
+
+  .job-period {
+    font-size: .8rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .job-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--white);
+    padding: .15rem .6rem;
+    border-radius: 2px;
+    margin-left: .6rem;
+    vertical-align: middle;
+  }
+
+  .job ul {
+    margin-top: .8rem;
+    padding-left: 1.2rem;
+  }
+
+  .job ul li {
+    font-size: .9rem;
+    color: var(--text);
+    margin-bottom: .4rem;
+    line-height: 1.65;
+  }
+
+  /* ── COMPÉTENCES ──────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.5rem;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .5s, transform .5s;
+  }
+
+  .skill-card.visible { opacity: 1; transform: none; }
+
+  .skill-card:hover {
+    border-color: var(--blue-mid);
+    box-shadow: 0 4px 20px rgba(26,74,114,.08);
+  }
+
+  .skill-icon {
+    font-size: 1.6rem;
+    margin-bottom: .8rem;
+  }
+
+  .skill-card h3 {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: .5rem;
+  }
+
+  .skill-card p {
+    font-size: .85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── PROJETS ──────────────────────────────────────────────── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.8rem;
+    border-top: 3px solid var(--blue-mid);
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity .5s, transform .5s;
+  }
+
+  .project-card.visible { opacity: 1; transform: none; }
+
+  .project-card:hover {
+    box-shadow: 0 6px 24px rgba(26,74,114,.1);
+    transform: translateY(-2px);
+  }
+
+  .project-tag {
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .6rem;
+  }
+
+  .project-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: .6rem;
+    line-height: 1.4;
+  }
+
+  .project-card p {
+    font-size: .85rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* ── PARTENAIRES ──────────────────────────────────────────── */
+  .partners {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+  }
+
+  .partner-badge {
+    background: var(--white);
+    border: 1.5px solid var(--line);
+    color: var(--blue);
+    font-size: .82rem;
+    font-weight: 600;
+    padding: .45rem 1.1rem;
+    border-radius: 3px;
+    letter-spacing: .06em;
+    transition: border-color .2s, background .2s;
+  }
+
+  .partner-badge:hover {
+    border-color: var(--blue-mid);
+    background: var(--blue-lt);
+  }
+
+  /* ── FORMATION ────────────────────────────────────────────── */
+  .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .edu-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.4rem;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    border-left: 3px solid var(--blue-mid);
+  }
+
+  .edu-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--blue-mid);
+    min-width: 60px;
+    line-height: 1;
+    padding-top: .1rem;
+  }
+
+  .edu-info h3 {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: .2rem;
+  }
+
+  .edu-info p {
+    font-size: .85rem;
+    color: var(--muted);
+  }
+
+  /* ── RÉFÉRENCES ───────────────────────────────────────────── */
+  .refs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .ref-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+
+  .ref-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+
+  .ref-info h3 {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: .2rem;
+  }
+
+  .ref-info p {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-bottom: .4rem;
+    line-height: 1.5;
+  }
+
+  .ref-info a {
+    font-size: .82rem;
+    color: var(--blue-mid);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  /* ── FOOTER ───────────────────────────────────────────────── */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,.4);
+    text-align: center;
+    padding: 2rem;
+    font-size: .8rem;
+  }
+
+  footer strong { color: rgba(255,255,255,.7); }
+
+  /* ── ANIMATIONS ───────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @keyframes scrollLine {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.2rem 5rem; }
+    .section { padding: 3.5rem 1.2rem; }
+    .timeline::before { left: 7px; }
+    .job { padding-left: 2.2rem; }
+    .edu-item { flex-direction: column; gap: .5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">Portfolio Professionnel</div>
+    <h1>Ingénieur des Travaux<br>en <span>Systèmes d'Information</span></h1>
+    <p class="hero-sub">Spécialiste de la transformation numérique de l'administration publique et de la modernisation de l'état civil au Burkina Faso.</p>
+    <div class="hero-contacts">
+      <span>📍 <strong>Ouagadougou, Burkina Faso</strong></span>
+      <span>📞 <strong>+226 XX XX XX XX</strong></span>
+      <span>✉ <strong>votre.email@example.com</strong></span>
+    </div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#profil">Profil</a>
+    <a href="#experiences">Expériences</a>
+    <a href="#projets">Projets</a>
+    <a href="#competences">Compétences</a>
+    <a href="#formation">Formation</a>
+    <a href="#partenaires">Partenaires</a>
+    <a href="#references">Références</a>
+  </div>
+</nav>
+
+<!-- PROFIL -->
+<section class="section" id="profil">
+  <div class="inner">
+    <div class="section-label">À propos</div>
+    <h2 class="section-title">Profil Professionnel</h2>
+    <p class="profil-text">
+      Ingénieur des Travaux en Systèmes d'Information avec plus de <strong>5 ans d'expérience</strong>
+      dans le déploiement de solutions numériques et la modernisation des services publics.
+      Expert en conduite de projets SI, en déploiement de solutions d'état civil électronique
+      et en accompagnement au changement. Impliqué dans des projets stratégiques nationaux
+      en partenariat avec des organisations internationales de premier plan.
+    </p>
+    <div class="stats">
+      <div class="stat"><strong>5+</strong><span>Années d'expérience</span></div>
+      <div class="stat"><strong>3</strong><span>Systèmes déployés</span></div>
+      <div class="stat"><strong>7</strong><span>Partenaires internationaux</span></div>
+      <div class="stat"><strong>2</strong><span>Secteurs (public & privé)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPÉRIENCES -->
+<section class="section" id="experiences">
+  <div class="inner">
+    <div class="section-label">Parcours</div>
+    <h2 class="section-title">Expériences Professionnelles</h2>
+    <div class="timeline">
+
+      <div class="job current">
+        <div class="job-header">
+          <div class="job-title">Responsable de l'Informatisation des Centres d'État Civil et de l'Identifiant Unique <span class="job-badge">Poste actuel</span></div>
+          <div class="job-org">Direction Générale de la Modernisation de l'État Civil (DGMEC)</div>
+          <div class="job-period">Janvier 2026 – Présent · Fonction publique, Burkina Faso</div>
+        </div>
+        <ul>
+          <li>Pilotage du processus d'informatisation des centres d'état civil à l'échelle nationale.</li>
+          <li>Mise en œuvre du système d'identifiant unique des personnes physiques.</li>
+          <li>Supervision technique des équipes terrain et suivi des déploiements.</li>
+          <li>Collaboration avec les partenaires internationaux : HCR, NRC, ENABEL, OIM, UNICEF.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Agent – Systèmes d'Information / Modernisation de l'État Civil</div>
+          <div class="job-org">Direction Générale de la Modernisation de l'État Civil (DGMEC)</div>
+          <div class="job-period">2023 – Décembre 2025 · Fonction publique, Burkina Faso</div>
+        </div>
+        <ul>
+          <li>Mise en place et déploiement de la solution de demande et délivrance d'actes d'état civil en ligne.</li>
+          <li>Déploiement du système d'archivage électronique pour la numérisation des registres physiques.</li>
+          <li>Contribution à la solution nationale de déclaration et d'enregistrement des faits d'état civil.</li>
+          <li>Organisation des opérations d'indexation des actes via le système d'archivage.</li>
+          <li>Participation au processus d'acquisition de matériel informatique.</li>
+          <li>Formation et assistance technique des utilisateurs.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Agent – Direction des Systèmes d'Information</div>
+          <div class="job-org">Administration centrale – Ministère (Burkina Faso)</div>
+          <div class="job-period">2022 – 2023 · Fonction publique, Burkina Faso</div>
+        </div>
+        <ul>
+          <li>Participation à la mise en place d'une solution de gestion électronique du courrier.</li>
+          <li>Formation et assistance technique des utilisateurs à l'adoption de la solution.</li>
+          <li>Maintenance et support du parc informatique de la direction.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title">Responsable du Parc Informatique</div>
+          <div class="job-org">WENDPANGA INDUSTRIE – Matériaux de Construction</div>
+          <div class="job-period">2020 – 2021 · Secteur privé, Burkina Faso</div>
+        </div>
+        <ul>
+          <li>Gestion, maintenance et administration du parc informatique.</li>
+          <li>Mise en place des procédures de sécurité informatique.</li>
+          <li>Assistance technique quotidienne aux utilisateurs.</li>
+          <li>Gestion des contrats fournisseurs IT et suivi des équipements.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section class="section" id="projets">
+  <div class="inner">
+    <div class="section-label">Réalisations</div>
+    <h2 class="section-title">Projets Clés</h2>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-tag">État Civil Numérique</div>
+        <h3>Solution de Demande d'Actes d'État Civil en Ligne</h3>
+        <p>Déploiement d'une plateforme nationale permettant aux citoyens de demander et recevoir leurs actes d'état civil en ligne, réduisant les délais et facilitant l'accès aux services.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Archivage</div>
+        <h3>Système d'Archivage Électronique des Registres</h3>
+        <p>Mise en place d'un système de numérisation, d'indexation et d'archivage des registres physiques d'état civil, préservant le patrimoine documentaire national.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Enregistrement Civil</div>
+        <h3>Solution Nationale de Déclaration des Faits d'État Civil</h3>
+        <p>Déploiement d'une solution de déclaration systématique et d'enregistrement des naissances, mariages et décès à l'échelle nationale.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Identité Numérique</div>
+        <h3>Informatisation des Centres d'État Civil & Identifiant Unique</h3>
+        <p>Pilotage du programme national d'informatisation des centres d'état civil et de mise en place de l'identifiant unique des personnes physiques.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">GED</div>
+        <h3>Solution de Gestion Électronique du Courrier</h3>
+        <p>Participation à la mise en place d'un système de gestion du courrier administratif au sein d'une direction centrale, avec formation des agents.</p>
+      </div>
+
+      <div class="project-card">
+        <div class="project-tag">Infrastructure IT</div>
+        <h3>Gestion du Parc Informatique – Secteur Privé</h3>
+        <p>Mise en place et gestion complète du parc informatique de WENDPANGA INDUSTRIE, incluant maintenance, sécurité et support utilisateurs.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section class="section" id="competences">
+  <div class="inner">
+    <div class="section-label">Savoir-faire</div>
+    <h2 class="section-title">Compétences Techniques</h2>
+    <div class="skills-grid">
+
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <h3>Systèmes d'Information</h3>
+        <p>Déploiement de solutions métier, GED, archivage électronique, état civil numérique, gestion de bases de données.</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📋</div>
+        <h3>Gestion de Projet SI</h3>
+        <p>Conduite de projet, cahiers des charges, acquisition de matériel, coordination d'équipes terrain, déploiement à grande échelle.</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🔧</div>
+        <h3>Administration Système</h3>
+        <p>Gestion et maintenance de parcs informatiques, support technique, sécurité des systèmes, administration réseau.</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🎓</div>
+        <h3>Formation & Assistance</h3>
+        <p>Formation des utilisateurs finaux, rédaction de guides, accompagnement au changement, support de proximité.</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">🤝</div>
+        <h3>Coordination & Partenariats</h3>
+        <p>Collaboration avec organisations internationales (HCR, UNICEF, OIM, ENABEL), coordination inter-institutionnelle.</p>
+      </div>
+
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>Numérisation & Archivage</h3>
+        <p>Numérisation de documents, indexation, archivage électronique, gestion documentaire à grande échelle.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section class="section" id="formation">
+  <div class="inner">
+    <div class="section-label">Académique</div>
+    <h2 class="section-title">Formation</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-year">2019</div>
+        <div class="edu-info">
+          <h3>Licence en Systèmes d'Information</h3>
+          <p>Établissement – Burkina Faso</p>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2014</div>
+        <div class="edu-info">
+          <h3>Baccalauréat Série D</h3>
+          <p>Établissement – Burkina Faso</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTENAIRES -->
+<section class="section" id="partenaires">
+  <div class="inner">
+    <div class="section-label">Collaborations</div>
+    <h2 class="section-title">Partenaires Internationaux</h2>
+    <div class="partners">
+      <span class="partner-badge">HCR</span>
+      <span class="partner-badge">NRC</span>
+      <span class="partner-badge">ENABEL</span>
+      <span class="partner-badge">PCIC</span>
+      <span class="partner-badge">GOLDCOST</span>
+      <span class="partner-badge">OIM</span>
+      <span class="partner-badge">UNICEF</span>
+    </div>
+  </div>
+</section>
+
+<!-- RÉFÉRENCES -->
+<section class="section" id="references">
+  <div class="inner">
+    <div class="section-label">Contacts</div>
+    <h2 class="section-title">Personnes de Référence</h2>
+    <div class="refs-grid">
+
+      <div class="ref-card">
+        <div class="ref-avatar">ND</div>
+        <div class="ref-info">
+          <h3>M. NACANABO DIALLO Ousmane</h3>
+          <p>Directeur des Systèmes d'Information<br>Office National de l'Identification (ONI)</p>
+          <a href="tel:+22670711941">📞 +226 70 71 19 41</a>
+        </div>
+      </div>
+
+      <div class="ref-card">
+        <div class="ref-avatar">KA</div>
+        <div class="ref-info">
+          <h3>M. KINDO Abdoul-Aziz</h3>
+          <p>Enseignant-Chercheur<br>École Supérieure d'Informatique (ESI)</p>
+          <a href="tel:+22670242514">📞 +226 70 24 25 14</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Ingénieur des Travaux en Systèmes d'Information</strong> · Ouagadougou, Burkina Faso
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.job, .skill-card, .project-card').forEach(el => observer.observe(el));
+
+  // Stagger delays
+  document.querySelectorAll('.skill-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+  document.querySelectorAll('.project-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.07) + 's';
+  });
+  document.querySelectorAll('.job').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+  });
+</script>
+</body>
+</html>
